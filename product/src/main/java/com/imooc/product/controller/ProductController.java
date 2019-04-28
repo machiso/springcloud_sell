@@ -10,9 +10,7 @@ import com.imooc.product.service.ProductCategoryService;
 import com.imooc.product.service.ProductInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +58,13 @@ public class ProductController {
         }
 
         return ResponseUtil.success(productVOS);
+    }
+
+    /**
+     * 查询商品信息（提供order服务调用）
+     */
+    @PostMapping("/getProductList")
+    public List<ProductInfo> getProductList(List<String> productIdList){
+        return productInfoService.findByProductIdIn(productIdList);
     }
 }

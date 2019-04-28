@@ -20,7 +20,7 @@ public class OrderMaster {
     private BigDecimal orderAmount;
     private Integer orderStatus;
     private Integer payStatus;
-    private Date createDTime;
+    private Date createTime;
     private Date updateTime;
 
 }

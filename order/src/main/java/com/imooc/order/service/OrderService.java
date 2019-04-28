@@ -1,5 +1,7 @@
 package com.imooc.order.service;
 
+import com.imooc.order.DTO.OrderDTO;
+
 public interface OrderService {
-//    create();
+    OrderDTO create(OrderDTO orderDTO);
 }

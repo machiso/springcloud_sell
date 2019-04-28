@@ -18,4 +18,9 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     public List<ProductInfo> findUpAll() {
         return productInfoRepository.findByProductStatus(ProductStatusEnum.UP.getCode());
     }
+
+    @Override
+    public List<ProductInfo> findByProductIdIn(List<String> productIdList) {
+        return productInfoRepository.findByProductIdIn(productIdList);
+    }
 }

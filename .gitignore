@@ -29,9 +29,11 @@ hs_err_pid*
 /eureka/eureka.iml
 /order/order.iml
 /client/client.iml
+/config/config.iml
 /.gitignore
 /eureka/target/
 /client/target/
 /order/target/
 /product/target/
+/config/target/
 /client/.idea/
