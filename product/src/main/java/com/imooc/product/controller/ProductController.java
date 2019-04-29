@@ -4,6 +4,7 @@ import com.imooc.product.VO.ProductInfoVO;
 import com.imooc.product.VO.ProductVO;
 import com.imooc.product.VO.Response;
 import com.imooc.product.VO.ResponseUtil;
+import com.imooc.product.dto.CartDto;
 import com.imooc.product.model.ProductCategory;
 import com.imooc.product.model.ProductInfo;
 import com.imooc.product.service.ProductCategoryService;
@@ -64,7 +65,15 @@ public class ProductController {
      * 查询商品信息（提供order服务调用）
      */
     @PostMapping("/getProductList")
-    public List<ProductInfo> getProductList(List<String> productIdList){
+    public List<ProductInfo> getProductList(@RequestBody List<String> productIdList){
         return productInfoService.findByProductIdIn(productIdList);
+    }
+
+    /**
+     * 扣库存(提供订单服务调用)
+     */
+    @PostMapping("/decreaseStock")
+    public void decreaseStock(@RequestBody List<CartDto> cartDtoList){
+        productInfoService.decreaseStock(cartDtoList);
     }
 }

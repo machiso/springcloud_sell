@@ -17,7 +17,7 @@ public class OrderDTO {
     private BigDecimal orderAmount;
     private Integer orderStatus;
     private Integer payStatus;
-    private Date createDTime;
+    private Date createTime;
     private Date updateTime;
     private List<OrderDetail> orderDetailList;
 }
