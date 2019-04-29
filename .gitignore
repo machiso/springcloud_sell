@@ -37,3 +37,7 @@ hs_err_pid*
 /product/target/
 /config/target/
 /client/.idea/
+/order/server/server.iml
+/product/clients/clients.iml
+/product/commons/commons.iml
+/product/servers/servers.iml
