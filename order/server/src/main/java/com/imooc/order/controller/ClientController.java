@@ -1,13 +1,13 @@
 package com.imooc.order.controller;
 
-import com.imooc.order.client.ProductClient;
-import com.imooc.order.model.ProductInfo;
+import com.imooc.product.client.ProductClient;
+import common.DecreaseStockInput;
+import common.ProductInfoOutput;
 import lombok.extern.slf4j.Slf4j;
-import com.imooc.order.DTO.CartDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +15,8 @@ import java.util.List;
 @Slf4j
 public class ClientController {
 
-    @Autowired private ProductClient productClient;
+    @Resource
+    private ProductClient productClient;
 
     @GetMapping("getProductMsg")
     public String getProductMsg(){
@@ -29,15 +30,16 @@ public class ClientController {
      */
     @GetMapping("/getProductList")
     public String getProductList(){
-        List<ProductInfo> productList = productClient.getProductList(Arrays.asList("164103465734242707"));
+        List<ProductInfoOutput> productList = productClient.getProductList(Arrays.asList("164103465734242707"));
         log.info("response={}",productList);
         return "ok";
     }
 
     @GetMapping("/decreaseStock")
     public String decreaseStock(){
-        CartDto cartDto = new CartDto("164103465734242707",3);
-        productClient.decreaseStock(Arrays.asList(cartDto));
+//        CartDto cartDto = new CartDto("164103465734242707",3);
+        DecreaseStockInput decreaseStockInput = new DecreaseStockInput("164103465734242707",3);
+        productClient.decreaseStock(Arrays.asList(decreaseStockInput));
         return "ok";
     }
 

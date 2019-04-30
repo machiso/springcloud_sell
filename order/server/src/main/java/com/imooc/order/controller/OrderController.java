@@ -1,7 +1,7 @@
 package com.imooc.order.controller;
 
-import com.imooc.order.client.ProductClient;
 import com.imooc.order.exception.OrderException;
+import com.imooc.product.client.ProductClient;
 import lombok.extern.slf4j.Slf4j;
 import com.imooc.order.DTO.OrderDTO;
 import com.imooc.order.VO.Response;
@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/com/imooc/order")
+@RequestMapping("/order")
 @Slf4j
 public class OrderController {
 
     @Autowired private OrderService orderService;
-    @Autowired private ProductClient productClient;
+    @Resource private ProductClient productClient;
 
     /**
      * 1 参数校验

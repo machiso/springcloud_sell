@@ -1,15 +1,15 @@
 package com.imooc.order.service.impl;
 
-import com.imooc.order.client.ProductClient;
 import com.imooc.order.enums.OrderStatusEnum;
 import com.imooc.order.model.OrderMaster;
 import com.imooc.order.utils.KeyGenUnique;
+import com.imooc.product.client.ProductClient;
+import common.DecreaseStockInput;
+import common.ProductInfoOutput;
 import lombok.extern.slf4j.Slf4j;
-import com.imooc.order.DTO.CartDto;
 import com.imooc.order.DTO.OrderDTO;
 import com.imooc.order.enums.PayStatusEnum;
 import com.imooc.order.model.OrderDetail;
-import com.imooc.order.model.ProductInfo;
 import com.imooc.order.repository.OrderDetailRepository;
 import com.imooc.order.repository.OrderMasterRepository;
 import com.imooc.order.service.OrderService;
@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     @Autowired private OrderMasterRepository orderMasterRepository;
     @Autowired private OrderDetailRepository orderDetailRepository;
-    @Autowired private ProductClient productClient;
+    @Resource private ProductClient productClient;
 
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
@@ -40,13 +41,13 @@ public class OrderServiceImpl implements OrderService {
         List<String> productIdList = orderDTO.getOrderDetailList().stream()
                 .map(orderDetail -> orderDetail.getProductId())
                 .collect(Collectors.toList());
-        List<ProductInfo> productList = productClient.getProductList(productIdList);
+        List<ProductInfoOutput> productList = productClient.getProductList(productIdList);
         // 3 计算总价
 //        List<CartDto> cartDtoList = orderDTO.getOrderDetailList().stream()
 //                .map(orderDetail -> new CartDto(orderDetail.getProductId(), orderDetail.getProductQuantity()))
 //                .collect(Collectors.toList());
         BigDecimal count = new BigDecimal(BigInteger.ZERO);
-        for (ProductInfo productInfo:productList){
+        for (ProductInfoOutput productInfo:productList){
             for (OrderDetail orderDetail:orderDTO.getOrderDetailList()){
                 if (productInfo.getProductId().equals(orderDetail.getProductId())){
                     count=productInfo.getProductPrice()
@@ -60,8 +61,8 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         // 4 扣库存（调用商品服务）
-        List<CartDto> cartDtoList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new CartDto(e.getProductId(), e.getProductQuantity()))
+        List<DecreaseStockInput> cartDtoList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new DecreaseStockInput(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productClient.decreaseStock(cartDtoList);
         // 5 订单入库

@@ -41,3 +41,14 @@ hs_err_pid*
 /product/clients/clients.iml
 /product/commons/commons.iml
 /product/servers/servers.iml
+/product/commons/product-commons.iml
+/product/servers/product-servers.iml
+/order/server/ordre-server.iml
+/order/clients/order-client.iml
+/order/clients/clients.iml
+/order/common/common.iml
+/order/common/order-common.iml
+/product/clients/product-clients.iml
+/product/commons/target/
+/product/servers/target/
+/order/server/target/
