@@ -6,8 +6,11 @@ import com.imooc.product.exception.ProductException;
 import com.imooc.product.model.ProductInfo;
 import com.imooc.product.repository.ProductInfoRepository;
 import com.imooc.product.service.ProductInfoService;
+import com.imooc.product.utils.JsonUtil;
+import com.rabbitmq.tools.json.JSONUtil;
 import common.DecreaseStockInput;
 import common.ProductInfoOutput;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProductInfoServiceImpl implements ProductInfoService {
     @Autowired private ProductInfoRepository productInfoRepository;
+    @Autowired private AmqpTemplate amqpTemplate;
 
     @Override
     public List<ProductInfo> findUpAll() {
@@ -52,6 +56,11 @@ public class ProductInfoServiceImpl implements ProductInfoService {
             }
             productInfo.setProductStock(sub);
             productInfoRepository.save(productInfo);
+
+            //发送消息给mq
+            ProductInfoOutput output = new ProductInfoOutput();
+            BeanUtils.copyProperties(productInfo,output);
+            amqpTemplate.convertAndSend("productInfo",JsonUtil.toJson(output));
         }
     }
 }

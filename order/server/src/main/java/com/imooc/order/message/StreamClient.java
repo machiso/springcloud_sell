@@ -14,4 +14,5 @@ public interface StreamClient {
 
     @Output(StreamClient.OUTPUT)
     MessageChannel output();
+
 }
