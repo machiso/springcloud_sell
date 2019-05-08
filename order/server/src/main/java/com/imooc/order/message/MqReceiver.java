@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MqReceiver {
-    @RabbitListener(queues = "myQueue")
-    public void proecess(String message){
-        log.info("MqReceiver:{}",message);
-    }
+//    @RabbitListener(queues = "myQueue")
+//    public void proecess(String message){
+//        log.info("MqReceiver:{}",message);
+//    }
 }
