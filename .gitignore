@@ -52,3 +52,6 @@ hs_err_pid*
 /product/commons/target/
 /product/servers/target/
 /order/server/target/
+/api-gateway/api-gateway.iml
+/order/common/target/
+/user/user-server/target/
