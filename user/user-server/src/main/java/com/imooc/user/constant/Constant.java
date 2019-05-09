@@ -6,7 +6,7 @@ package com.imooc.user.constant;
 public interface Constant {
     String TOKEN = "token";
 
-    String OPEN_ID = "abc";
+    String OPEN_ID = "openid";
 
     Integer expire=7200;
 }
