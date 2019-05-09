@@ -55,3 +55,6 @@ hs_err_pid*
 /api-gateway/api-gateway.iml
 /order/common/target/
 /user/user-server/target/
+/user/.idea/
+/user/user.iml
+/user/user-server/user-server.iml
