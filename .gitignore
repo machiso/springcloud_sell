@@ -58,3 +58,4 @@ hs_err_pid*
 /user/.idea/
 /user/user.iml
 /user/user-server/user-server.iml
+/api-gateway/target/
